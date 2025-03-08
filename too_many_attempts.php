@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config.php'; // Include your database configuration file
+require 'ipHandler.php'; // Include your database configuration file
 
 $tz = 'Asia/Kolkata';
 date_default_timezone_set($tz);

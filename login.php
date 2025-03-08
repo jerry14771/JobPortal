@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require 'ipHandler.php';
 if(isset($_SESSION['email'])){
     header('location:index.php');
 }

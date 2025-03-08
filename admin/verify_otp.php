@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $conn->prepare("UPDATE admins SET temp_otp = NULL, otp_generated_time = NULL WHERE id = ?");
                 $stmt->bind_param("i", $admin['id']);
                 $stmt->execute();
-
                 $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 header("Location: index.php");
                 exit();
             } else {

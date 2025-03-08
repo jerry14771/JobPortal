@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 $edit_mode = false;
 
-if(!isset($_POST['edit_job'])){
+if (!isset($_POST['edit_job'])) {
     if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['edit_job'])) {
         $edit_mode = true;
         $job_id = intval($_POST['edit_job_id']);
-    
+
         $stmt = $conn->prepare("SELECT * FROM job_post WHERE job_id = ?");
         if ($stmt) {
             $stmt->bind_param('i', $job_id);
@@ -89,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="p-6 bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-700 rounded-md">
                         <form class="text-start" method="POST" action="job-post-backend.php">
                             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                            <input type="hidden" name="edit_id" value="<?php echo isset($job_data['job_id']) ? $job_data['job_id'] : ''; ?>">
+
                             <div class="grid grid-cols-1">
                                 <h5 class="text-lg font-semibold">Job Details:</h5>
                             </div>
@@ -96,14 +98,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="grid grid-cols-12 gap-4 mt-4">
                                 <div class="col-span-12 text-start">
                                     <label class="font-semibold" for="RegisterName">Job Title:</label>
-                                    <input id="RegisterName" type="text" name="job_title" value="<?php echo isset($job_data['job_title']) ? $job_data['job_title'] : '';?>"
+                                    <input id="RegisterName" type="text" name="job_title"
+                                        value="<?php echo isset($job_data['job_title']) ? $job_data['job_title'] : ''; ?>"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
                                         placeholder="Web Developer">
                                 </div>
 
                                 <div class="col-span-12 text-start">
                                     <label for="comments" class="font-semibold">Job Description:</label>
-                                    <textarea id="summernote" name="job_description"><?php echo isset($job_data['job_description']) ? $job_data['job_description'] : '';?></textarea>
+                                    <textarea id="summernote"
+                                        name="job_description"><?php echo isset($job_data['job_description']) ? $job_data['job_description'] : ''; ?></textarea>
 
                                 </div>
 
@@ -111,9 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label class="font-semibold">Job Categories:</label>
                                     <select name="job_categories"
                                         class="form-select w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent block mt-1">
-                                        <option value="Web Designer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Designer') ? 'selected' : ''; ?>>Web Designer</option>
-<option value="Web Developer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Developer') ? 'selected' : ''; ?>>Web Developer</option>
-<option value="UI / UX Desinger" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'UI / UX Desinger') ? 'selected' : ''; ?>>UI / UX Desinger</option>
+                                        <option value="Web Designer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Designer') ? 'selected' : ''; ?>>Web
+                                            Designer</option>
+                                        <option value="Web Developer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Developer') ? 'selected' : ''; ?>>Web
+                                            Developer</option>
+                                        <option value="UI / UX Desinger" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'UI / UX Desinger') ? 'selected' : ''; ?>>
+                                            UI / UX Desinger</option>
                                     </select>
                                 </div>
 
@@ -121,10 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label class="font-semibold">Job Type:</label>
                                     <select name="job_type"
                                         class="form-select w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent block mt-1">
-                                        <option value="Full Time">Full Time</option>
-                                        <option value="Part Time">Part Time</option>
-                                        <option value="Work From Home">Work From Home</option>
-                                        <option value="Remote Job">Remote Job</option>
+                                        <option value="Full Time" <?php echo (isset($job_data['job_type']) && $job_data['job_type'] === 'Full Time') ? 'selected' : ''; ?>>Full Time</option>
+                                        <option value="Part Time" <?php echo (isset($job_data['job_type']) && $job_data['job_type'] === 'Part Time') ? 'selected' : ''; ?>>Part Time</option>
+                                        <option value="Work From Home" <?php echo (isset($job_data['job_type']) && $job_data['job_type'] === 'Work From Home') ? 'selected' : ''; ?>>Work From Home</option>
+                                        <option value="Remote Job" <?php echo (isset($job_data['job_type']) && $job_data['job_type'] === 'Remote Job') ? 'selected' : ''; ?>>Remote Job</option>
                                     </select>
                                 </div>
 
@@ -138,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </span>
                                             <input type="number"
                                                 class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
-                                                placeholder="min" name="minsalary">
+                                                placeholder="min" name="minsalary" value="<?php echo isset($job_data['salary_min']) ? $job_data['salary_min'] : ''; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </span>
                                             <input type="number"
                                                 class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
-                                                placeholder="max" name="maxsalary">
+                                                placeholder="max" name="maxsalary" value="<?php echo isset($job_data['salary_max']) ? $job_data['salary_max'] : ''; ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -169,21 +176,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label class="font-semibold" for="Skillname">Skills:</label>
                                     <input id="Skillname" type="text" name="skills"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
-                                        placeholder="Web Developer">
+                                        placeholder="React, PHP, Laravel , etc..." value="<?php echo isset($job_data['skills']) ? $job_data['skills'] : ''; ?>">
                                 </div>
 
                                 <div class="md:col-span-6 col-span-12 text-start">
                                     <label class="font-semibold" for="Qualification">Qualifications:</label>
                                     <input id="Qualification" type="text" name="qualification"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
-                                        placeholder="Qualifications">
+                                        placeholder="Qualifications" value="<?php echo isset($job_data['qualification']) ? $job_data['qualification'] : ''; ?>">
                                 </div>
 
                                 <div class="md:col-span-6 col-span-12 text-start">
                                     <label class="font-semibold" for="Experience">Experience:</label>
                                     <input id="Experience" type="text" name="experience"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
-                                        placeholder="Experience">
+                                        placeholder="Experience" value="<?php echo isset($job_data['experience']) ? $job_data['experience'] : ''; ?>">
                                 </div>
 
 
@@ -195,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label class="font-semibold" for="Address">Address:</label>
                                     <input id="Address" type="text" name="address"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
-                                        placeholder="Address">
+                                        placeholder="Address" value="<?php echo isset($job_data['location']) ? $job_data['location'] : ''; ?>">
                                 </div>
                             </div>
 
