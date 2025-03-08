@@ -87,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="lg:flex justify-center">
                 <div class="lg:w-2/3">
                     <div class="p-6 bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-700 rounded-md">
-                        <form class="text-start" method="POST" action="job-post-backend.php">
+                        <form class="text-start" method="POST" action="job-post-backend.php" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                            <input type="hidden" name="edit_id" value="<?php echo isset($job_data['job_id']) ? $job_data['job_id'] : ''; ?>">
+                            <input type="hidden" name="edit_id" value="<?php echo isset($job_data['job_id']) ? $job_data['job_id'] : null; ?>">
 
                             <div class="grid grid-cols-1">
                                 <h5 class="text-lg font-semibold">Job Details:</h5>
@@ -97,11 +97,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="grid grid-cols-12 gap-4 mt-4">
                                 <div class="col-span-12 text-start">
+                                    <label class="font-semibold" for="company_name">Company Name:</label>
+                                    <input id="company_name" type="text" name="company_name"
+                                        value="<?php echo isset($job_data['company_name']) ? $job_data['company_name'] : ''; ?>"
+                                        class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
+                                        placeholder="Google, Microsoft, etc...">
+                                </div>
+                                <div class="col-span-12 text-start">
                                     <label class="font-semibold" for="RegisterName">Job Title:</label>
                                     <input id="RegisterName" type="text" name="job_title"
                                         value="<?php echo isset($job_data['job_title']) ? $job_data['job_title'] : ''; ?>"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
                                         placeholder="Web Developer">
+                                </div>
+                                <div class="col-span-12 text-start">
+                                    <label class="font-semibold" for="job_url">Job URL:</label>
+                                    <input id="job_url" type="text" name="job_url"
+                                        value="<?php echo isset($job_data['job_url']) ? $job_data['job_url'] : ''; ?>"
+                                        class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
+                                        placeholder="https://">
+                                </div>
+
+                                <div class="col-span-12 text-start">
+                                    <label class="font-semibold" for="logo_image">Logo Image</label>
+                                    <input id="logo_image" type="file" name="logo_image" 
+                                        class="w-full py-2 px-3 border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1">
                                 </div>
 
                                 <div class="col-span-12 text-start">
@@ -143,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 class="size-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
                                                 <i data-feather="dollar-sign" class="size-4 absolute top-3 start-3"></i>
                                             </span>
-                                            <input type="number"
+                                            <input type="text"
                                                 class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
                                                 placeholder="min" name="minsalary" value="<?php echo isset($job_data['salary_min']) ? $job_data['salary_min'] : ''; ?>">
                                         </div>
@@ -159,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 class="size-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
                                                 <i data-feather="dollar-sign" class="size-4 absolute top-3 start-3"></i>
                                             </span>
-                                            <input type="number"
+                                            <input type="text"
                                                 class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
                                                 placeholder="max" name="maxsalary" value="<?php echo isset($job_data['salary_max']) ? $job_data['salary_max'] : ''; ?>">
                                         </div>
