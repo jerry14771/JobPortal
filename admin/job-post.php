@@ -1,8 +1,38 @@
 <?php
-include "AuthCheck.php";
 
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+include '../config.php';
+
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$edit_mode = false;
+
+if(!isset($_POST['edit_job'])){
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Invalid CSRF token!');
+    }
+    if (isset($_POST['edit_job'])) {
+        $edit_mode = true;
+        $job_id = intval($_POST['edit_job_id']);
+    
+        $stmt = $conn->prepare("SELECT * FROM job_post WHERE job_id = ?");
+        if ($stmt) {
+            $stmt->bind_param('i', $job_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $job_data = $result->fetch_assoc();
+            $stmt->close();
+        }
+
+    }
 }
 
 ?>
@@ -66,14 +96,14 @@ if (!isset($_SESSION['csrf_token'])) {
                             <div class="grid grid-cols-12 gap-4 mt-4">
                                 <div class="col-span-12 text-start">
                                     <label class="font-semibold" for="RegisterName">Job Title:</label>
-                                    <input id="RegisterName" type="text" name="job_title"
+                                    <input id="RegisterName" type="text" name="job_title" value="<?php echo isset($job_data['job_title']) ? $job_data['job_title'] : '';?>"
                                         class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent mt-1"
                                         placeholder="Web Developer">
                                 </div>
 
                                 <div class="col-span-12 text-start">
                                     <label for="comments" class="font-semibold">Job Description:</label>
-                                    <textarea id="summernote" name="job_description"></textarea>
+                                    <textarea id="summernote" name="job_description"><?php echo isset($job_data['job_description']) ? $job_data['job_description'] : '';?></textarea>
 
                                 </div>
 
@@ -81,9 +111,9 @@ if (!isset($_SESSION['csrf_token'])) {
                                     <label class="font-semibold">Job Categories:</label>
                                     <select name="job_categories"
                                         class="form-select w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent block mt-1">
-                                        <option value="Web Designer">Web Designer</option>
-                                        <option value="Web Developer">Web Developer</option>
-                                        <option value="UI / UX Desinger">UI / UX Desinger</option>
+                                        <option value="Web Designer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Designer') ? 'selected' : ''; ?>>Web Designer</option>
+<option value="Web Developer" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Web Developer') ? 'selected' : ''; ?>>Web Developer</option>
+<option value="UI / UX Desinger" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'UI / UX Desinger') ? 'selected' : ''; ?>>UI / UX Desinger</option>
                                     </select>
                                 </div>
 
@@ -114,19 +144,19 @@ if (!isset($_SESSION['csrf_token'])) {
                                 </div>
 
                                 <div class="md:col-span-6 col-span-12 text-start">
-                                <label class="font-semibold">Max Salary:</label>
+                                    <label class="font-semibold">Max Salary:</label>
 
-                                <div class="md:col-span-3 col-span-12 text-start">
-                                    <div class="relative mt-1">
-                                        <span
-                                            class="size-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
-                                            <i data-feather="dollar-sign" class="size-4 absolute top-3 start-3"></i>
-                                        </span>
-                                        <input type="number"
-                                            class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
-                                            placeholder="max" name="maxsalary">
+                                    <div class="md:col-span-3 col-span-12 text-start">
+                                        <div class="relative mt-1">
+                                            <span
+                                                class="size-10 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 absolute top-0 start-0 overflow-hidden rounded">
+                                                <i data-feather="dollar-sign" class="size-4 absolute top-3 start-3"></i>
+                                            </span>
+                                            <input type="number"
+                                                class="w-full py-2 px-3 text-[14px] border border-gray-200 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 rounded h-10 outline-none bg-transparent ps-12"
+                                                placeholder="max" name="maxsalary">
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
 

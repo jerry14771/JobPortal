@@ -48,7 +48,7 @@
                     <!-- Navigation Menu-->   
                     <ul class="navigation-menu nav-right !justify-end">
                         <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)" style="color:black">Home</a>
+                            <a href="index.php" style="color:black">Home</a>
                         </li>
 
                         <li class="has-submenu parent-parent-menu-item"><a href="job-post.php" style="color:black"> Post Jobs </a>

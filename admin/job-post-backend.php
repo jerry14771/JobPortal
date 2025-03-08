@@ -6,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Invalid CSRF token!');
     }
 
+    //  Code for post Jobs
+
     if (isset($_POST['post_job'])) {
         $job_title = isset($_POST['job_title']) ? trim($_POST['job_title']) : null;
         $job_description = isset($_POST['job_description']) ? $_POST['job_description'] : null; 
@@ -51,6 +53,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Failed to prepare the SQL statement.';
         }
     }
+
+    // Code for deletion records
+
+    if (isset($_POST['delete_job']) && isset($_POST['job_id'])) {
+        $job_id = intval($_POST['job_id']);  
+
+        $stmt = $conn->prepare("DELETE FROM job_post WHERE job_id = ?");
+        if ($stmt) {
+            $stmt->bind_param('i', $job_id);
+
+            if ($stmt->execute()) {
+                header("Location:index.php");
+                exit();
+            } else {
+                echo 'Error: ' . $stmt->error;
+            }
+            $stmt->close();
+        } else {
+            echo 'Failed to prepare the SQL statement.';
+        }
+    }
+
+    // Write code to fetch any data based on ID
+
+
 }
 
 $conn->close();
