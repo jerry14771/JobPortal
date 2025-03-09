@@ -141,6 +141,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             Developer</option>
                                         <option value="UI / UX Desinger" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'UI / UX Desinger') ? 'selected' : ''; ?>>
                                             UI / UX Desinger</option>
+                                        <option value="Automation" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Automation') ? 'selected' : ''; ?>>
+                                        Automation</option>
+                                        <option value="Data Science" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Data Science') ? 'selected' : ''; ?>>
+                                        Data Science</option>
+                                        <option value="Testing" <?php echo (isset($job_data['job_categories']) && $job_data['job_categories'] === 'Testing') ? 'selected' : ''; ?>>
+                                        Testing</option>
                                     </select>
                                 </div>
 

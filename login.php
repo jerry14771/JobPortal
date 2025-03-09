@@ -97,8 +97,8 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Pixel Apply - Find Your Dream Job</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta content="Job Listing Landing" name="description">
-    <meta content="Job, CV, Career, Resume, Job Portal, Create Job, Post job, tailwind Css" name="keywords">
+    <meta content="Find the latest IT jobs and apply directly. No signup required!" name="description">
+    <meta content="Job, CV, Career, Resume, Job Portal, Freshers Job, IT Jobs, Experienced Jobs, High Paying It Jobs" name="keywords">
     <meta name="version" content="1.6.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="assets/images/favicon.ico">

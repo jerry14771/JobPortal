@@ -4,11 +4,11 @@
         <!-- Logo container-->
         <a class="logo" href="index.php">
             <div class="block sm:hidden">
-                <img src="assets/logo/Pixel_Apply_new.png" class="inline-block dark:hidden" style="height:30px" alt="">
+                <img src="assets/logo/Pixel_Apply_new.png" class="inline-block dark:hidden" style="height:30px" alt="LOGO">
             </div>
             <div class="sm:block hidden">
                 <img src="assets/logo/Pixel_Apply_new.png" class="inline-block dark:hidden" style="height: 35px;"
-                    alt="">
+                    alt="LOGO">
             </div>
         </a>
 
@@ -40,7 +40,7 @@
                     <button data-dropdown-toggle="dropdown" class="dropdown-toggle items-center" type="button">
                         <span
                             class="size-9 inline-flex items-center text-center justify-center text-base font-semibold tracking-wide border align-middle transition duration-500 ease-in-out rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"><img
-                                src="assets/images/profile.png" class="rounded-full" alt=""></span>
+                                src="assets/images/profile.png" class="rounded-full" alt="Profile"></span>
                     </button>
                     <div class="dropdown-menu absolute end-0 m-0 mt-4 z-10 w-44 rounded-md overflow-hidden bg-white dark:bg-slate-900 shadow-sm dark:shadow-gray-700 hidden"
                         onclick="event.stopPropagation();">
