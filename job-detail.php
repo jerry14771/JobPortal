@@ -25,33 +25,7 @@ if (isset($_GET['jobid']) && is_numeric($_GET['jobid'])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en" class="light scroll-smooth" dir="ltr">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Pixel Apply - Find Your Dream Job</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta content="Find the latest IT jobs and apply directly. No signup required!" name="description">
-    <meta content="Job, CV, Career, Resume, Job Portal, Freshers Job, IT Jobs, Experienced Jobs, High Paying It Jobs" name="keywords">
-    <meta name="version" content="1.6.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
-    <link href="assets/libs/%40iconscout/unicons/css/line.css" type="text/css" rel="stylesheet">
-    <link href="assets/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/tailwind.min.css" rel="stylesheet" type="text/css">
-
-</head>
-
-<body class="dark:bg-slate-900">
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-        </div>
-    </div>
 
     <?php
     include('header.php');
@@ -150,7 +124,7 @@ if (isset($_GET['jobid']) && is_numeric($_GET['jobid'])) {
                                     <div class="ms-4">
                                         <p class="font-medium">Salary:</p>
                                         <span
-                                            class="text-emerald-600 font-medium text-sm"><?php echo date($row['salary_min'] . '-' . $row['salary_max']); ?></span>
+                                            class="text-emerald-600 font-medium text-sm"><?php echo ($row['salary_min'] . '-' . $row['salary_max']); ?></span>
                                     </div>
                                 </li>
 

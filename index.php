@@ -24,61 +24,7 @@ if ($result->num_rows > 0) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en" class="light scroll-smooth" dir="ltr">
 
-<head>
-
-    <meta charset="UTF-8">
-    <title>Pixel Apply - Find Your Dream Job</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta content="Find the latest IT jobs and apply directly. No signup required!" name="description">
-    <meta content="Job, CV, Career, Resume, Job Portal, Freshers Job, IT Jobs, Experienced Jobs, High Paying It Jobs"
-        name="keywords">
-    <link rel="canonical" href="https://pixelapply.com/" />
-    <meta name="version" content="1.6.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
-    <link href="assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
-    <link href="assets/libs/%40iconscout/unicons/css/line.css" type="text/css" rel="stylesheet">
-    <link href="assets/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/tailwind.min.css" rel="stylesheet" type="text/css">
-
-    <!-- OpenGraph Meta Tags -->
-    <meta property="og:updated_time" content="<?php echo date('c'); ?>">
-
-    <meta property="og:title" content="PixelApply - Find Your Dream Job">
-    <meta property="og:description" content="Find the latest IT jobs and apply directly. No signup required!">
-    <meta property="og:image" content="https://www.pixelapply.com/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://www.pixelapply.com">
-    <meta property="og:type" content="website">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PixelApply - Find Your Dream Job">
-    <meta name="twitter:description" content="Find the latest IT jobs and apply directly. No signup required!">
-    <meta name="twitter:image" content="https://www.pixelapply.com/assets/images/og-image.jpg">
-
-</head>
-
-<body class="dark:bg-slate-900">
-    <!-- Loader Start -->
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        @media (max-width: 768px) {
-            .custom-class {
-                display: none;
-            }
-        }
-    </style>
     <?php
 
     @include("header.php");

@@ -80,10 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p class="text-red-500 text-center" style="color:red"><?= htmlspecialchars($error) ?></p>
                         <?php endif; ?>
                         </div>
-
-                       
-
-
                         <form method="POST" class="text-start">
                             <div class="grid grid-cols-1">
                                 <div class="mb-4 text-start">

@@ -20,7 +20,6 @@ $email = trim($_POST['email'] ?? '');
 $password = trim($_POST['password'] ?? '');
 $error_message = '';
 
-// Check if the user is already locked out
 $stmt = $conn->prepare("SELECT locked_until FROM login_attempts WHERE ip_address = ?");
 $stmt->bind_param("s", $ip_address);
 $stmt->execute();
@@ -32,19 +31,17 @@ if ($row && $row['locked_until'] && strtotime($row['locked_until']) > time()) {
     exit();
 }
 
-// Process login attempt only if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if the user exists and the password is correct
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Successful login, reset attempts by IP
         $stmt = $conn->prepare("UPDATE login_attempts SET attempts = 0, locked_until = NULL WHERE ip_address = ?");
         $stmt->bind_param("s", $ip_address);
         $stmt->execute();
+        $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $email;
         header("location:index.php");
     } else {
@@ -66,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
         }
 
-        // Check if the user should be locked out
         if ($attempts >= $maxAttempts) {
             $lockoutUntil = date('Y-m-d H:i:s', time() + $lockoutTime);
             $stmt = $conn->prepare("UPDATE login_attempts SET locked_until = ? WHERE ip_address = ?");
@@ -151,18 +147,8 @@ $conn->close();
                                         class="form-input mt-3 rounded-md" placeholder="Password:">
                                 </div>
 
-                                <!-- Display error message for invalid login attempts -->
-
-
                                 <div class="flex justify-between mb-4">
-                                    <div class="inline-flex items-center mb-0">
-                                        <input
-                                            class="form-checkbox rounded size-4 appearance-none rounded border border-gray-200 dark:border-gray-800 accent-green-600 checked:appearance-auto dark:accent-green-600 focus:border-green-300 focus:ring-0 focus:ring-offset-0 focus:ring-green-200 focus:ring-opacity-50 me-2"
-                                            type="checkbox" value="" id="RememberMe">
-                                        <label class="form-checkbox-label text-slate-400" for="RememberMe">Remember
-                                            me</label>
-                                    </div>
-                                    <p class="text-slate-400 mb-0"><a href="reset-password.html"
+                                    <p class="text-slate-400 mb-0"><a href=""
                                             class="text-slate-400">Forgot password ?</a></p>
                                 </div>
 
@@ -185,7 +171,7 @@ $conn->close();
 
                                 <div class="text-center">
                                     <span class="text-slate-400 me-2">Don't have an account ?</span> <a
-                                        href="signup.html" class="text-slate-900 dark:text-white font-bold">Sign Up</a>
+                                        href="signup.php" class="text-slate-900 dark:text-white font-bold">Sign Up</a>
                                 </div>
                             </div>
                         </form>
